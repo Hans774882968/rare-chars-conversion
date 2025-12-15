@@ -18,7 +18,7 @@ export default defineConfig(() => {
     },
   } : {};
 
-  console.log(`[rare-chars-convention] Base path: ${basePath}`);
+  console.log(`[rare-chars-conversion] Base path: ${basePath}`);
 
   return {
     base: basePath,

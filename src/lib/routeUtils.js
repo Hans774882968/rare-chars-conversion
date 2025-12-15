@@ -1,4 +1,4 @@
-const GITHUB_PAGE_BASE = '/rare-chars-convention/';
+const GITHUB_PAGE_BASE = '/rare-chars-conversion/';
 
 export function getWebsiteBasePath() {
   const isGitHubPages = import.meta.env.VITE_DEPLOY_TARGET === 'github-pages';
