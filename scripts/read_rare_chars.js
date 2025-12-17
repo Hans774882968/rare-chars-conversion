@@ -49,32 +49,10 @@ function main() {
   const pinyinDictStrCompressed = compressToEncodedURIComponent(pinyinDictStr);
   const compressedPinyinDictContent = `
 import { decompressFromEncodedURIComponent } from 'lz-string';
-
-/**
- * 根据拼音字典反向构建汉字到拼音关键字的映射
- * @param pinyinDict - Record<string, string[]>，如 { "ai": ["爱", "艾", ...] }
- * @returns chineseDict - Record<string, string[]>，如 { "爱": ["ai"], "艾": ["ai"], ... }
- */
-export function buildChineseDict(pinyinDict) {
-  const chineseDict = {};
-
-  for (const [key, charList] of Object.entries(pinyinDict)) {
-    if (!Array.isArray(charList)) continue;
-
-    for (const s of charList) {
-      if (!chineseDict[s]) {
-        chineseDict[s] = [key];
-      } else {
-        chineseDict[s].push(key);
-      }
-    }
-  }
-
-  return chineseDict;
-}
+import { buildPinyinDictWithoutCommonlyUsed } from './textUtils';
 
 export const pinyinDict = JSON.parse(decompressFromEncodedURIComponent('${pinyinDictStrCompressed}'));
-export const chineseDict = buildChineseDict(pinyinDict);
+export const pinyinDictWithoutCommonlyUsed = buildPinyinDictWithoutCommonlyUsed(pinyinDict);
 `.trimStart();
   fs.writeFileSync('src/lib/pinyinDictCompressedData.js', compressedPinyinDictContent, 'utf8');
 }
